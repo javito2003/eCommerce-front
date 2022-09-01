@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestHeaders } from "axios"
 import { IResponse } from "../interfaces/Responses"
+import config from '../config'
 
 enum Urls {
     AUTH = "AUTH",
@@ -12,11 +13,11 @@ type TUrls = "AUTH" | "PRODUCT" | "CATEGORY"
 function setUrl(urlType: string): string {
     switch (urlType) {
         case Urls.AUTH:
-            return "http://localhost:3001/api/auth"
+            return `${config.API.URL}/api/auth`
         case Urls.CATEGORY:
-            return "http://localhost:3001/api/categories"
+            return `${config.API.URL}/api/categories`
         case Urls.PRODUCT:
-            return "http://localhost:3003/api/products"
+            return `${config.products.URL}/api/api/products`
         default:
             return ""
     }

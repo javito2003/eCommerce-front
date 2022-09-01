@@ -3,6 +3,7 @@ import { Option } from "../components"
 import Products from "../components/Products"
 import { IProduct } from "../interfaces/Product"
 import { useAppSelector } from "../redux"
+import config from "../config"
 import fetchApi from "../utils/fetchApi"
 import callToast from "../utils/toast"
 

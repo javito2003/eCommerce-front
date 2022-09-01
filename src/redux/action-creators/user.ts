@@ -4,6 +4,7 @@ import { Action } from "../actions/user";
 import axios from "axios";
 import { IResponse } from "../../interfaces/Responses";
 import { ActionType } from "../action-types/user";
+import config from '../../config'
 
 
 type TDispatch = Dispatch<Action>
@@ -17,7 +18,7 @@ export const logIn = () => async (dispatch: TDispatch) => {
     console.log("Exec");
     try {
         
-        let res = await axios.get<IResponse<AuthResponse>>("http://localhost:3001/api/auth/login/success", { withCredentials: true })
+        let res = await axios.get<IResponse<AuthResponse>>(`${config.API.URL}/api/auth/login/success`, { withCredentials: true })
         let user = res.data.body.user
         let toSend: TInitialDataUser = {
             user,

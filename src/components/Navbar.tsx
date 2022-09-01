@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import { useAppSelector } from '../redux'
+import config from '../config'
 
 const Navbar = () => {
     const history = useHistory()
     const logout = () => {
-        window.open("http://localhost:3001/api/auth/logout", "_self")
+        window.open(`${config.API.URL}/api/auth/logout`, "_self")
     }
 
     const { isLoggedIn, user } = useAppSelector(store => store.auth)

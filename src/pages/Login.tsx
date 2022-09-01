@@ -1,8 +1,9 @@
+import config from "../config"
 
 
 const Login = () => {
     const loginFn = async() => {
-        window.open("http://localhost:3001/api/auth/google", "_self")
+        window.open(`${config.API.URL}/api/auth/google`, "_self")
     }
 
   return (
