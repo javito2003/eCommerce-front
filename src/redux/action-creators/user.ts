@@ -14,7 +14,9 @@ type AuthResponse = {
 }
 
 export const logIn = () => async (dispatch: TDispatch) => {
+    console.log("Exec");
     try {
+        
         let res = await axios.get<IResponse<AuthResponse>>("http://localhost:3001/api/auth/login/success", { withCredentials: true })
         let user = res.data.body.user
         let toSend: TInitialDataUser = {
@@ -22,7 +24,14 @@ export const logIn = () => async (dispatch: TDispatch) => {
             token: res.data.body.token,
             isLoggedIn: true
         }
-        localStorage.setItem("auth", res.data.body.token)
+        
         dispatch({ type: ActionType.LOGIN, payload: toSend })
-    } catch (error) { }
+    } catch (error) { 
+        let toSend: TInitialDataUser = {
+            user: null,
+            token: "",
+            isLoggedIn: false
+        }
+        dispatch({ type: ActionType.LOGIN, payload: toSend })
+    }
 }

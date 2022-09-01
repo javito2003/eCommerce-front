@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, NavLink, useHistory } from 'react-router-dom'
 import { useAppSelector } from '../redux'
 
 const Navbar = () => {
@@ -20,12 +20,14 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link to="/" className="nav-link active" aria-current="page" >Home</Link>
+                            <NavLink to="/" exact className="nav-link" activeClassName='active'>Home</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/" className="nav-link" >Link</Link>
-                        </li>
-
+                        {
+                            isLoggedIn &&
+                            <li className="nav-item">
+                                <NavLink to="/create" activeClassName='active' className="nav-link">Sell product</NavLink>
+                            </li>
+                        }
                     </ul>
                     <form className="d-flex mx-4" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

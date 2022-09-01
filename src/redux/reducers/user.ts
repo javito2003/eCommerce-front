@@ -2,10 +2,15 @@ import { TInitialDataUser } from "../../interfaces/User"
 import { ActionType } from "../action-types/user"
 import { Action } from "../actions/user"
 
-const initalState:TInitialDataUser = {
+interface IState extends TInitialDataUser {
+    fetched: boolean
+}
+
+const initalState:IState = {
     user: null,
     token: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    fetched: false
 }
 
 export const userReducer = (state = initalState, action: Action) => {
@@ -15,7 +20,8 @@ export const userReducer = (state = initalState, action: Action) => {
                 ...state,
                 user: action.payload.user,
                 token: action.payload.token,
-                isLoggedIn: action.payload.isLoggedIn
+                isLoggedIn: action.payload.isLoggedIn,
+                fetched: true
             }
         default:
             return state

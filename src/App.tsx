@@ -1,20 +1,19 @@
 import Router from './Router';
-import { useAppDispatch } from './redux'
-import { useEffect } from 'react';
-import * as userActions from './redux/action-creators/user'
+import { useAppSelector } from './redux'
 import { BrowserRouter } from 'react-router-dom';
 function App() {
-  const dispatch = useAppDispatch()
-  
+  const fetched = useAppSelector(store => store.auth.fetched)
 
-  useEffect(() => {
-    dispatch(userActions.logIn() as any)
-  }, [dispatch])
-  return (
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+  if (fetched) {
+    return (
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     );
+  } else {
+    return <div />
+  }
+
 }
 
 export default App;
