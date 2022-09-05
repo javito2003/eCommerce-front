@@ -17,7 +17,7 @@ function setUrl(urlType: string): string {
         case Urls.CATEGORY:
             return `${config.API.URL}/api/categories`
         case Urls.PRODUCT:
-            return `${config.products.URL}/api/api/products`
+            return `${config.products.URL}/api/products`
         default:
             return ""
     }
