@@ -37,6 +37,8 @@ export default async function <T>({ urlDirec, url, method, body, token }: IProp)
         if (token) {
             headers.authorization = `Bearer ${token}`
         }
+        console.log(setUrl(urlDirec) + url);
+        
         let { data } = await axios.request<IResponse<T>>({
             url: `${setUrl(urlDirec) + url}`,
             method: method,
