@@ -36,10 +36,14 @@ const Home = () => {
     categoriesToQuery(categoryIdCopy)
   }
 
-  const searchProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const searchProduct = async (e?: React.MouseEvent<HTMLButtonElement>) => {
+    if(e) {
+      e.preventDefault()
+    }
     if(ProductName !== "") {
-      let res = await fetchApi<IProduct[]>({ urlDirec: "PRODUCT", url: `/name?name=${ProductName}`, method: "GET" })
+      let c = categoriesToQuery(categoryIds)
+      let param = sortState.value
+      let res = await fetchApi<IProduct[]>({ urlDirec: "PRODUCT", url: `/name?name=${ProductName}&sort=${param}&${c}`, method: "GET" })
       if(!res.error) {
         setProducts(res.body as IProduct[])
       }
@@ -68,7 +72,11 @@ const Home = () => {
   }
 
   useEffect(() => {
-    getProducts(sortState.value, categoriesToQuery(categoryIds))
+    if(ProductName) {
+      searchProduct()
+    } else {
+      getProducts(sortState.value, categoriesToQuery(categoryIds))
+    }
   }, [sortState, categoryIds])
 
   return (
