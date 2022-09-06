@@ -4,5 +4,6 @@ export default {
     },
     API: {
         URL: process.env.REACT_APP_API_URL || ""
-    }
+    },
+    authURL: process.env.REACT_APP_AUTHURL || ""
 }

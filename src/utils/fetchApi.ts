@@ -37,7 +37,6 @@ export default async function <T>({ urlDirec, url, method, body, token }: IProp)
         if (token) {
             headers.authorization = `Bearer ${token}`
         }
-        console.log(setUrl(urlDirec) + url);
         
         let { data } = await axios.request<IResponse<T>>({
             url: `${setUrl(urlDirec) + url}`,
@@ -45,16 +44,19 @@ export default async function <T>({ urlDirec, url, method, body, token }: IProp)
             data: body,
             headers: headers
         })
+        
         return data
     } catch (error) {
-        if(error instanceof AxiosError) {
-            return error.response?.data.body as IResponse<string>
+        let toReturn: IResponse<string> = {
+            error: true,
+            status: 500,
+            body: ""
+        }
+        if(error instanceof AxiosError) {     
+            toReturn.body = error.response?.data.body
+            return toReturn
         } else {
-            let toReturn: IResponse<string> = {
-                body: "Error to create product",
-                error: true,
-                status: 500
-            }
+            toReturn.body = "Error to get products"
             return toReturn
         }
     }
