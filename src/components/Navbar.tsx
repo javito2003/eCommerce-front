@@ -30,21 +30,25 @@ const Navbar = () => {
                             </li>
                         }
                     </ul>
-                    
+
                     {
                         isLoggedIn
                             ?
-                            <ul className="navbar-nav mr-auto mb-2 mb-lg-0">
-                                <li className="nav-item dropdown">
-                                    <Link to="/" className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        { user?.name }
-                                    </Link>
-                                    <ul className="dropdown-menu">
-                                        <li><Link to="/" className="dropdown-item" >Profile</Link></li>
-                                        <li><p onClick={logout} style={{ cursor: "pointer" }} className="dropdown-item" >Log out</p></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <div>
+                                <ul className="navbar-nav mr-auto mb-2 mb-lg-0">
+                                    <a role="button" data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample" className='btn btn-primary'>cart</a>
+                                    <li className="nav-item dropdown">
+                                        <Link to="/" className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {user?.name}
+                                        </Link>
+                                        <ul className="dropdown-menu">
+                                            <li><Link to="/" className="dropdown-item" >Profile</Link></li>
+                                            <li><p onClick={logout} style={{ cursor: "pointer" }} className="dropdown-item" >Log out</p></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </div>
                             : <button onClick={() => history.push("/login")} className='btn btn-primary'>SIGN IN NOW</button>
                     }
 

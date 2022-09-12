@@ -24,7 +24,7 @@ const Home = () => {
   const [categoryIds, setCategoryIds] = useState<number[]>([])
   const [fetched, setFetched] = useState(false)
   const categories = useAppSelector(store => store.category.categories)
-
+  
   const selectCategory = (id: number) => {
     let categoryIdCopy = [...categoryIds]
     if (categoryIdCopy.indexOf(id) === -1) {

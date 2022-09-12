@@ -23,6 +23,11 @@ export const userReducer = (state = initalState, action: Action) => {
                 isLoggedIn: action.payload.isLoggedIn,
                 fetched: true
             }
+        case ActionType.SETUSER:
+            return {
+                ...state,
+                user: action.payload
+            }
         default:
             return state
     }

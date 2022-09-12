@@ -1,5 +1,9 @@
 import { IProduct } from '../interfaces/Product'
+import { useAppDispatch } from '../redux'
 import ProductPlaceholder from './placeholder/Product'
+import * as cartActions from '../redux/action-creators/cart'
+
+
 
 interface IPropProducts {
     products: IProduct[]
@@ -45,6 +49,11 @@ interface IPropProduct {
 }
 
 const Product = ({ product }: IPropProduct) => {
+    const dispatch = useAppDispatch()
+
+    const addCart = async(Id: number) => {
+        await dispatch(cartActions.addCart(Id, 1) as any)
+    }
     return (
         <div className="card m-3" style={{ width: "18rem" }}>
             <div className="card-body">
@@ -52,7 +61,7 @@ const Product = ({ product }: IPropProduct) => {
                 <p className="card-text">{product.description}</p>
                 <div className="d-flex align-items-center justify-content-between">
                     <b>${product.price}</b>
-                    <button className='btn btn-info'>Buy now</button>
+                    <button onClick={() => addCart(product.Id)} className='btn btn-info'>Add to cart</button>
                 </div>
             </div>
         </div>

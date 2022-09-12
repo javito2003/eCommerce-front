@@ -5,11 +5,13 @@ import config from '../config'
 enum Urls {
     AUTH = "AUTH",
     PRODUCT = "PRODUCT",
-    CATEGORY = "CATEGORY"
+    CATEGORY = "CATEGORY",
+    CART = "CART",
+    USER = "USER"
 }
 
-type TUrls = "AUTH" | "PRODUCT" | "CATEGORY"
-
+type TUrls = "AUTH" | "PRODUCT" | "CATEGORY" | "CART" | "USER"
+ 
 function setUrl(urlType: string): string {
     switch (urlType) {
         case Urls.AUTH:
@@ -18,6 +20,10 @@ function setUrl(urlType: string): string {
             return `${config.API.URL}/api/categories`
         case Urls.PRODUCT:
             return `${config.products.URL}/api/products`
+        case Urls.CART:
+            return `${config.products.URL}/api/cart`
+        case Urls.USER:
+            return `${config.API.URL}/api/user`
         default:
             return ""
     }
@@ -34,9 +40,11 @@ interface IProp {
 export default async function <T>({ urlDirec, url, method, body, token }: IProp) {
     try {
         let headers: AxiosRequestHeaders = {}
+        
         if (token) {
             headers.authorization = `Bearer ${token}`
         }
+        
         
         let { data } = await axios.request<IResponse<T>>({
             url: `${setUrl(urlDirec) + url}`,

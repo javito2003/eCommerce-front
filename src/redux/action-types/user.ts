@@ -1,4 +1,5 @@
 export enum ActionType {
     LOGIN  = "LOGIN",
-    READ = "READ"
+    READ = "READ",
+    SETUSER = "SETUSER"
 }
