@@ -18,7 +18,7 @@ const CartItem = ({ cart_item }: { cart_item: ICartItem }) => {
                 <p>Quantity:</p>
                 <div className="input-group mb-3 mx-2">
                     <button className="btn btn-outline-secondary btn-sm" type="button" id="button-addon1" onClick={() => updateCart(cart_item.productId, -1)}>-</button>
-                    <input type="text" contentEditable={false} className="form-control text-center" defaultValue={cart_item.quantity} aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                    <input type="text" contentEditable={false} className="form-control text-center" readOnly value={cart_item.quantity} aria-label="Example text with button addon" aria-describedby="button-addon1" />
                     <button className="btn btn-outline-secondary btn-sm" type="button" id="button-addon1" onClick={() => updateCart(cart_item.productId, 1)}>+</button>
                 </div>
             </div>

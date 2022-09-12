@@ -10,6 +10,7 @@ const Navbar = () => {
     }
 
     const { isLoggedIn, user } = useAppSelector(store => store.auth)
+    const { cartItems } = useAppSelector(store => store.cart) 
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -36,7 +37,17 @@ const Navbar = () => {
                             ?
                             <div>
                                 <ul className="navbar-nav mr-auto mb-2 mb-lg-0">
-                                    <a role="button" data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample" className='btn btn-primary'>cart</a>
+                                    <a role="button" data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample" className='btn btn-outline-primary position-relative'>
+                                        <span>cart</span>
+                                        {
+                                            cartItems > 0 && (
+                                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    { cartItems }
+                                                    <span className="visually-hidden">unread messages</span>
+                                                </span>
+                                            )
+                                        }
+                                    </a>
                                     <li className="nav-item dropdown">
                                         <Link to="/" className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {user?.name}

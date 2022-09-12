@@ -22,7 +22,6 @@ export const getCart = () => async(dispatch: TDispatch, getState: () => State) =
         }
 
     } catch (error) {
-        console.log(error);
     }
 }
 

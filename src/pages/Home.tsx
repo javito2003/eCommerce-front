@@ -104,7 +104,7 @@ const Home = () => {
           <div className='d-flex justify-content-between my-3'>
             <div>
               <form className="d-flex" role="search">
-                <input onClick={() => console.log("click")} onChange={e => setProductName(e.target.value)} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <input onChange={e => setProductName(e.target.value)} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button onClick={searchProduct} className="btn btn-outline-success" type="submit">Search</button>
               </form>
             </div>
