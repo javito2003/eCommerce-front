@@ -36,6 +36,8 @@ const Create = () => {
       formData.append("categoryId", String(values.categoryId))
   
       let res = await fetchApi<string>({ urlDirec: "PRODUCT", url: "/create", body: formData, method: "POST", token: token, formData: true })
+      console.log(res);
+      
       if (res.error) {
         callToast(res.body, "error")
       } else {

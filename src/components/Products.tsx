@@ -33,9 +33,7 @@ const Products = ({ products, fetched }: IPropProducts) => {
             <div className="row">
                 {
                     products.map(p => (
-                        <div className='col-md-3' key={p.Id}>
-                            <Product product={p} />
-                        </div>
+                            <Product product={p} key={p.Id} />
                     ))
                 }
             </div>
