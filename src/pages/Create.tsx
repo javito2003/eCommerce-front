@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
 import { Formik, FormikHelpers, Form, Field } from 'formik'
 import * as Yup from 'yup'
 
@@ -13,26 +14,49 @@ const ProductSchema = Yup.object().shape({
   categoryId: Yup.number().min(1, "La categoria es requerida").required("Titulo requerido")
 })
 
+interface IState {
+  previewImage: string,
+  pictureData: File | null
+}
+
 
 const Create = () => {
+  const [ image, setImage ] = useState<IState>({ previewImage: "", pictureData: null })
   const history = useHistory()
   const categories = useAppSelector(store => store.category.categories)
-  const user = useAppSelector(store => store.auth.user)
+  const { user, token } = useAppSelector(store => store.auth)
 
   const createProduct = async (values: IProductInput) => {
-    let toSend = {
-      ...values,
-      userId: user?.Id
-    }
-
-    let res = await fetchApi<string>({ urlDirec: "PRODUCT", url: "/create", body: toSend, method: "POST" })
-    if (res.error) {
-      callToast(res.body, "error")
+    if(image.pictureData) {
+      const formData = new FormData()
+      formData.append("picture", image.pictureData)
+      formData.append("title", values.title)
+      formData.append("description", values.description)
+      formData.append("price", String(values.price))
+      formData.append("categoryId", String(values.categoryId))
+  
+      let res = await fetchApi<string>({ urlDirec: "PRODUCT", url: "/create", body: formData, method: "POST", token: token, formData: true })
+      if (res.error) {
+        callToast(res.body, "error")
+      } else {
+        callToast(res.body + " Redireccionando...", "success")
+        setTimeout(() => {
+          history.push("/")
+        }, 2000)
+      }
     } else {
-      callToast(res.body + " Redireccionando...", "success")
-      setTimeout(() => {
-        history.push("/")
-      }, 2000)
+      callToast("Image is required", "error")
+    }
+  }
+
+  function uploadPicture(e: React.ChangeEvent<HTMLInputElement>) {
+    if(e.target.files) {
+      let image = e.target.files[0]
+      
+      setImage({
+        previewImage: URL.createObjectURL(image),
+        pictureData: image
+      })
     }
   }
 
@@ -84,6 +108,18 @@ const Create = () => {
                 </Field>
                 {
                   errors.categoryId && touched.categoryId ? ( <small className='text-danger'>{errors.categoryId}</small> ) : null
+                }
+                <div className='d-flex justify-content-between my-4'>
+                  <div>
+                    <label>Upload image</label>
+                    <p><small className='text-info'>Solo .jpeg, jpg, png</small></p>
+                    <input type="file" name='image' onChange={uploadPicture} accept=".jpeg, .jpg, .png" />
+                  </div>
+                  <img src={image.previewImage} width="250" alt="Product image" />
+                </div>
+                {
+                  !image.previewImage &&
+                  <small className='text-danger'>IMAGE IS REQUIRED</small>
                 }
               </div>
               <div className="d-grid">

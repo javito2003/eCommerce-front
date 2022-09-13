@@ -3,7 +3,8 @@ export interface IProductInput {
     description: string
     price: number
     categoryId: number
-    userId: number
+    userId: number,
+    imageUrl?: string
 }
 
 export interface IProduct extends IProductInput {

@@ -35,14 +35,18 @@ interface IProp {
     url?: string
     body?: any,
     token?: string
+    formData?: boolean
 }
 
-export default async function <T>({ urlDirec, url, method, body, token }: IProp) {
+export default async function <T>({ urlDirec, url, method, body, token, formData = false }: IProp) {
     try {
         let headers: AxiosRequestHeaders = {}
         
         if (token) {
             headers.authorization = `Bearer ${token}`
+        }
+        if(formData) {
+            headers["Content-Type"] = "multipart/form-data"
         }
         
         

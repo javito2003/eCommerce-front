@@ -33,7 +33,9 @@ const Products = ({ products, fetched }: IPropProducts) => {
             <div className="row">
                 {
                     products.map(p => (
-                        <Product product={p} key={p.Id} />
+                        <div className='col-md-3' key={p.Id}>
+                            <Product product={p} />
+                        </div>
                     ))
                 }
             </div>
@@ -56,6 +58,7 @@ const Product = ({ product }: IPropProduct) => {
     }
     return (
         <div className="card m-3" style={{ width: "18rem" }}>
+            <img src={product.imageUrl} alt="" className="card-img-top" />
             <div className="card-body">
                 <h5 className="card-title">{product.title}</h5>
                 <p className="card-text">{product.description}</p>
